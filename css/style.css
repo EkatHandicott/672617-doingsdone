@@ -290,10 +290,17 @@ a:focus {
 .main-navigation__list-item {
   display: flex;
   align-items: center;
+  border: 1px solid rgba(153, 153, 167, 0.199);
+  border-radius: 3px;
+  margin: 5px 2px 0 5px;
 
   font-size: 14px;
   color: #9fa4af;
   text-transform: uppercase;
+}
+
+.main-navigation__list-item:hover {
+  border: 2px solid rgba(120, 120, 128, 0.3);
 }
 
 .main-navigation__list-item--active {
