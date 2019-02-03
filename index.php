@@ -14,6 +14,18 @@ $tasks = [
 	['name' => 'Купить корм для кота','date' => 'Нет','category' => 'Домашние дела','is_done' => false],
 	['name' => 'Заказать пиццу','date' => 'Нет','category' => 'Домашние дела','is_done' => false]
 ];
+
+// Function for tasks count per project
+function count_tasks($tasks, $proj_name) {
+    $task_qty = 0;
+    foreach ($tasks as $key => $item) {
+        $task_cat = $item['category'];
+        if ($task_cat === $proj_name) {
+              $task_qty++;
+        }
+        return $task_qty;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +76,9 @@ $tasks = [
                     <?php foreach ($projects as $key => $value): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"> <?= $value; ?> </a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count">
+                                <?= count_tasks($tasks, $projects); ?>
+                            </span>
                         </li>
                     <?php endforeach; ?>
                     </ul>
@@ -102,8 +116,8 @@ $tasks = [
 
                 <table class="tasks">
                 <!-- Show tasks when it's done and when show_complete_tasks results in 1 -->
-                    <? foreach ($tasks as $key => $item): ?>
-                    <? if ($item['is_done'] && $show_complete_tasks): ?>
+                    <?php foreach ($tasks as $key => $item): ?>
+                    <?php if ($item['is_done'] && $show_complete_tasks): ?>
                     <tr class="tasks__item task task--completed">
                     <tr class="tasks__item task">
                         <td class="task__select">
@@ -121,7 +135,7 @@ $tasks = [
                     </tr>  
 
                     <!-- Show all the tasks that are not done -->
-                    <? elseif (!$item['is_done']) : ?> 
+                    <?php elseif (!$item['is_done']) : ?> 
                     <tr class="tasks__item task">
                     <tr class="tasks__item task">
                         <td class="task__select">
