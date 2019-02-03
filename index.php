@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 
@@ -20,11 +23,11 @@ function count_tasks($tasks, $proj_name) {
     $task_qty = 0;
     foreach ($tasks as $key => $item) {
         $task_cat = $item['category'];
-        if ($task_cat === $proj_name) {
+        if ($task_cat == $proj_name) {
               $task_qty++;
         }
-        return $task_qty;
     }
+    return $task_qty;
 }
 ?>
 
@@ -77,7 +80,7 @@ function count_tasks($tasks, $proj_name) {
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"> <?= $value; ?> </a>
                             <span class="main-navigation__list-item-count">
-                                <?= count_tasks($tasks, $projects); ?>
+                                <?= count_tasks($tasks, $value); ?>
                             </span>
                         </li>
                     <?php endforeach; ?>
