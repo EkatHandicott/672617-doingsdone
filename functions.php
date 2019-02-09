@@ -45,7 +45,7 @@ $cur_date = date("d.m.Y H:i");
 $today = strtotime($cur_date);
 $task_date = strtotime($date);
 
-$h_diff = ($task_date - $cur_date) / 3600;
+$h_diff = ($task_date - $today) / 3600;
 return $h_diff;
 }
 ?>
