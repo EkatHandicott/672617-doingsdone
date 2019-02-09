@@ -38,4 +38,14 @@ function count_tasks($tasks, $proj_name) {
 
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
+
+// Count hour difference 
+function count_hours($date) {
+$cur_date = date("d.m.Y H:i");
+$today = strtotime($cur_date);
+$task_date = strtotime($date);
+
+$h_diff = ($task_date - $cur_date) / 3600;
+return $h_diff;
+}
 ?>
