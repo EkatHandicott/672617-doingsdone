@@ -1,4 +1,7 @@
-<?php require_once ('functions.php'); ?>
+<?php require_once ('functions.php'); 
+
+header("Content-Type: text/html; charset=utf-8");
+?>
 
 <!DOCTYPE html>
 <html lang="ru">
