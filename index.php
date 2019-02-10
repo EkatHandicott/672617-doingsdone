@@ -18,4 +18,8 @@ $layout_content = include_template ('layout.php', [
     'user_name' => 'Ekaterina',
     ]);
 
-echo($layout_content); ?>
+echo($layout_content); 
+
+date_default_timezone_set('Australia/Melbourne');
+setlocale(LC_ALL, 'en_AU');
+?>

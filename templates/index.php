@@ -1,3 +1,7 @@
+<?php
+header("Content-Type: text/html; charset=utf-8");
+?>
+
 <h2 class="content__main-heading">Список задач</h2>
 
 <form class="search-form" action="index.php" method="post">
@@ -24,29 +28,11 @@
 </div>
 
 <table class="tasks">
-<!-- Show tasks when it's done and when show_complete_tasks results in 1 -->
     <?php foreach ($tasks as $key => $item): ?>
-    <?php if ($item['is_done'] && $show_complete_tasks): ?> 
-    <tr class="tasks__item task task--completed">
-    <tr class="tasks__item task">
-        <td class="task__select">
-            <label class="checkbox task__checkbox">
-                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                <span class="checkbox__text"> <?= $item['name']; ?> </span>
-            </label>
-        </td>
-        
-        <td class="task__file">
-            <a class="download-link" href="#">Home.psd</a>
-        </td>
-
-        <td class="task__date"> <?= $item['date']; ?> </td>
-    </tr>  
-
-    <!-- Show all the tasks that are not done -->
-    <?php elseif (!$item['is_done']) : ?> 
-    <tr class="tasks__item task">
-    <tr class="tasks__item task">
+    <?php if (!$item['is_done'] || $show_complete_tasks): ?> 
+    <tr class="tasks__item task 
+    <?php if ($item['is_done']) : ?> task--completed <?php endif; ?>
+    <?php if (count_hours($item['date']) <= 24 && $item['date'] != 'Нет') : ?> task--important <?php endif; ?>">
         <td class="task__select">
             <label class="checkbox task__checkbox">
                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
