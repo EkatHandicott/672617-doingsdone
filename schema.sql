@@ -6,7 +6,7 @@ USE doingsdone;
 
 CREATE TABLE projects (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title CHAR(100),
+    title CHAR(120),
     author INT NOT NULL
 );
 
