@@ -30,7 +30,13 @@ CREATE TABLE users (
     password CHAR(60) NOT NULL
 );
 
-DROP tables projects, tasks, users;
+DROP DATABASE doingsdone;
+
+CREATE DATABASE doingsdone
+    DEFAULT CHARACTER SET utf8
+    DEFAULT COLLATE utf8_general_ci;
+
+USE doingsdone;
 
 CREATE TABLE projects (
     id INT AUTO_INCREMENT PRIMARY KEY,

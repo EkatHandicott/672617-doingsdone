@@ -28,7 +28,7 @@ function esc($str) {
 function count_tasks($tasks, $proj_name) {
     $task_qty = 0;
     foreach ($tasks as $key => $item) {
-        $task_cat = $item['category'];
+        $task_cat = $item['project_id'];
         if ($task_cat == $proj_name) {
               $task_qty++;
         }
