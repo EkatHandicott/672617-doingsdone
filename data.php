@@ -13,4 +13,11 @@ $tasks = [
 	['name' => 'Заказать пиццу','date' => 'Нет','category' => 'Домашние дела','is_done' => false]
 ];
 
+$db = [
+    'host' => 'localhost',
+    'user' => 'root',
+    'password' => 'password',
+    'database' => 'doingsdone'
+];
+
 ?>

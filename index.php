@@ -6,38 +6,27 @@ require_once ('functions.php');
 require_once ('data.php');
 
 // Connecting to database
-$mysqli = mysqli_connect('localhost', 'root', '222', 'doingsdone');
+$mysqli = mysqli_connect($db['host'], $db['user'], $db['password'], $db['database']);
 mysqli_set_charset($mysqli, 'utf8');
 
 //Output any connection error
 if (!$mysqli) {
-    echo('Ошибка подключения : ' . mysqli_connect_error());
+    echo('Ошибка подключения : ' . mysqli_connect_error($mysqli));
 } else {
-    // Getting users id
-    $id = mysqli_real_escape_string($mysqli, $_GET['id']);
-    $sql = "SELECT name FROM users WHERE id = %s";
-    $result = mysqli_query($mysqli, $sql);
-    if (!$result) {
-        die("MySQL Error:" . mysqli_connect_error());
-    }
-    else {
-        $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-
     //SQL-query to get project list for user
-    $sql = "SELECT title FROM projects WHERE author = %s";
+    $sql = "SELECT title FROM projects WHERE user_id = 1";
     $result = mysqli_query($mysqli, $sql);
     if (!$result) {
-    die("MySQL Error:" . mysqli_connect_error());
+    echo("MySQL Error:" . mysqli_error($mysqli));
     } else {
         $projects = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     //SQL-query to get task list for user
-    $sql =  "SELECT * FROM tasks WHERE author = %s";
+    $sql =  "SELECT * FROM tasks WHERE user_id = 1";
     $result = mysqli_query($mysqli, $sql);
     if (!$result) {
-    die("MySQL Error:" . mysqli_connect_error());
+    echo("MySQL Error:" . mysqli_error($mysqli));
     } else {
         $tasks = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
