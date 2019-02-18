@@ -1,7 +1,4 @@
-<?php require_once ('functions.php'); 
-
-header("Content-Type: text/html; charset=utf-8");
-?>
+<?php require_once ('functions.php'); ?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -48,11 +45,11 @@ header("Content-Type: text/html; charset=utf-8");
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                     <!-- Get each name of all tasks -->
-                    <?php foreach ($projects as $key => $value): ?>
+                    <?php foreach ($projects as $project): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"> <?= $value; ?> </a>
+                            <a class="main-navigation__list-item-link" href="#"> <?= htmlspecialchars($project['title']); ?> </a>
                             <span class="main-navigation__list-item-count">
-                                <?= count_tasks($tasks, $value); ?>
+                                <?= count_tasks($tasks, ($project['title'])); ?>
                             </span>
                         </li>
                     <?php endforeach; ?>
