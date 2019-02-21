@@ -12,37 +12,40 @@ mysqli_set_charset($mysqli, 'utf8');
 $current_user = 1;
 //Output any connection error
 if (!$mysqli) {
-    echo('Ошибка подключения : ' . mysqli_connect_error($mysqli)); 
+    $error = mysqli_connect_error();
+    $page_content = include_template('error.php', ['error' => $error]);
 } else {
     //SQL-query to get project list for user
-    $sql = 'SELECT title FROM projects WHERE user_id = "' . $current_user . '";';
-    $result = mysqli_query($mysqli, $sql);
-    if (!$result) {
-    echo("MySQL Error:" . mysqli_error($mysqli));
-    } else {
-        $projects = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-
+    $projects = get_projects($mysqli, $current_user);
+    if (!$projects) {
+        $error = mysqli_connect_error();
+        $page_content = include_template('error.php', ['error' => $error]);
+}
     //SQL-query to get task list for user
-    $sql =  'SELECT * FROM tasks WHERE user_id = "' . $current_user . '";';
-    $result = mysqli_query($mysqli, $sql);
-    if (!$result) {
-    echo("MySQL Error:" . mysqli_error($mysqli));
-    } else {
-        $tasks = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $all_tasks = get_tasks($mysqli, $current_user);
+    if (!$all_tasks) {
+        $error = mysqli_connect_error();
+        $page_content = include_template('error.php', ['error' => $error]);
+}
+// Project-tasks check
+if (isset($_GET['id'])) {
+    $tasks = get_tasks($mysqli, $current_user, $_GET['id']);
+    $page_content = include_template('index.php', [
+        'tasks' => $tasks,
+        'show_complete_tasks' =>  $show_complete_tasks
+        ]);
+        if(!$tasks) {
+            $error =  "Project " . htmlspecialchars($_GET['id']) . " not found";
+            $page_content = include_template('error.php', ['error' => $error]);
+            http_response_code(404);
+        }
     }
 }
 
-$page_content = include_template ('index.php', [
-	'tasks' => $tasks, 
-	'show_complete_tasks' => $show_complete_tasks,
-	]);
-
 $layout_content = include_template ('layout.php', [
     'title' => 'Дела в порядке', 
-    'content' => $page_content, 
+    // 'content' => $page_content, 
     'projects' => $projects,
-    'tasks' => $tasks,
     'user_name' => 'Ekaterina',
     ]);
 
