@@ -39,17 +39,28 @@ if (isset($_GET['id'])) {
             $page_content = include_template('error.php', ['error' => $error]);
             http_response_code(404);
         }
+    } else {
+        $tasks = $all_tasks;
+        $index_content = include_template('index.php', [
+            'tasks' => $tasks,
+            'show_complete_tasks' =>  $show_complete_tasks
+        ]);
     }
 }
 
+$page_content = include_template('index.php', [
+    'tasks' => $tasks,
+    'show_complete_tasks' =>  $show_complete_tasks
+    ]);
+
 $layout_content = include_template ('layout.php', [
     'title' => 'Дела в порядке', 
-    // 'content' => $page_content, 
+    'content' => $page_content, 
+    'tasks' => $tasks,
     'projects' => $projects,
     'user_name' => 'Ekaterina',
     ]);
-
-echo($layout_content); 
+    echo($layout_content); 
 
 date_default_timezone_set('Australia/Melbourne');
 setlocale(LC_ALL, 'en_AU');

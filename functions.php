@@ -28,9 +28,8 @@ function esc($str) {
 function count_tasks($tasks, $project_title) {
     $task_qty = 0;
     foreach ($tasks as $task) {
-        $task_cat = $task['title'];
-        if ($task_cat === $project_title) {
-              $task_qty++;
+        if ($task['title'] === $project_title) {
+            $task_qty++;
         }
     }
     return $task_qty;
