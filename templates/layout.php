@@ -47,9 +47,10 @@
                     <!-- Get each name of all tasks -->
                     <?php foreach ($projects as $project): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"> <?= htmlspecialchars($project['title']); ?> </a>
+                            <a class="main-navigation__list-item-link" href="/?id=<?= $project['id'] ?>">
+                            <?= htmlspecialchars($project['title']) ?> </a>
                             <span class="main-navigation__list-item-count">
-                                <?= count_tasks($tasks, ($project['title'])); ?>
+                                <?= count_tasks($tasks, $project['title']); ?>
                             </span>
                         </li>
                     <?php endforeach; ?>

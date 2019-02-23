@@ -48,18 +48,20 @@ $h_diff = ($task_date - $today) / 3600;
 return $h_diff;
 }
 
+// Get projects
 function get_projects($mysqli, $user_id) {
     $sql_projs = 'SELECT id, title FROM projects WHERE user_id = "' . $user_id . '";';
     $result_projs = mysqli_query($mysqli, $sql_projs);
-
-if(!$result_projs) {
+    
+    if(!$result_projs) {
     return NULL;
 }
     return mysqli_fetch_all($result_projs, MYSQLI_ASSOC);
 }
 
+// Get tasks
 function get_tasks($mysqli, $user_id, $task_id = NULL) {
-if ($task_id === NULL) {
+    if ($task_id === NULL) {
     $sql_tasks = 'SELECT t. *, p.title AS project_title FROM tasks t
     JOIN projects p
     ON t.project_id = p.id
