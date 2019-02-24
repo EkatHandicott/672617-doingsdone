@@ -25,12 +25,11 @@ function esc($str) {
 }
 
 // Function for tasks count per project
-function count_tasks($tasks, $proj_name) {
+function count_tasks($tasks, $project_title) {
     $task_qty = 0;
     foreach ($tasks as $task) {
-        $task_cat = $task['title'];
-        if ($task_cat === $proj_name) {
-              $task_qty++;
+        if ($task['title'] === $project_title) {
+            $task_qty++;
         }
     }
     return $task_qty;
@@ -47,5 +46,45 @@ $task_date = strtotime($date);
 
 $h_diff = ($task_date - $today) / 3600;
 return $h_diff;
+}
+
+// Get projects
+function get_projects($mysqli, $user_id) {
+    $sql_projs = 'SELECT id, title FROM projects WHERE user_id = "' . $user_id . '";';
+    $result_projs = mysqli_query($mysqli, $sql_projs);
+    
+    if(!$result_projs) {
+    return NULL;
+}
+    return mysqli_fetch_all($result_projs, MYSQLI_ASSOC);
+}
+
+// Get tasks
+function get_tasks($mysqli, $user_id, $task_id = NULL) {
+    if ($task_id === NULL) {
+    $sql_tasks = 'SELECT t. *, p.title AS project_title FROM tasks t
+    JOIN projects p
+    ON t.project_id = p.id
+    WHERE t.user_id = ' . $user_id . ';';
+    
+    $result_tasks = mysqli_query($mysqli, $sql_tasks);
+
+    if (!$result_tasks) {
+        return null;
+    }
+    return mysqli_fetch_all($result_tasks, MYSQLI_ASSOC);
+} else {
+    $sql_tasks = 'SELECT t. *, p.title AS project_title
+    FROM tasks t
+    JOIN projects p 
+    ON t.project_id = p.id
+    WHERE t.user_id = ' . $user_id . ' AND t.project_id = ' . $task_id . ';';
+    $result_tasks = mysqli_query($mysqli, $sql_tasks);
+    
+    if (!$result_tasks) {
+        return null;
+    }
+    return mysqli_fetch_all($result_tasks, MYSQLI_ASSOC);
+}
 }
 ?>
